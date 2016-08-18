@@ -3,6 +3,9 @@
 // X.G.Gerrmann
 // 18-08-2016
 
+#ifndef TIMER_H
+#define TIMER_H
+
 #include <iostream>
 #include <chrono>
 #include <ctime>
@@ -55,10 +58,12 @@ void timer::stop(std::string text){
 void timer::show_time(std::string text, bool lap){
 	if(lap){
 		time_elapsed	= std::chrono::steady_clock::now()-time_start_previous_lap;
-		std::cerr<< text << printf(": Total time: %f",time_elapsed.count()) << std::endl;
+		std::cerr<< text << ": Total time: " << time_elapsed.count() << std::endl;
 	}
 	else{
 		time_elapsed	= std::chrono::steady_clock::now()-time_start;
-		std::cerr<< text << printf(": Elapsed time: %f",time_elapsed.count()) << std::endl;
+		std::cerr<< text << ": Elapsed time: " << time_elapsed.count() << std::endl;
 	}
  }
+
+#endif
