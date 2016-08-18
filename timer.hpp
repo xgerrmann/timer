@@ -12,12 +12,12 @@ class timer{
 		bool running;
 		std::chrono::time_point<std::chrono::steady_clock> time_start, time_start_previous_lap;
 		std::chrono::duration<double> time_elapsed;
-		void show_time(char* text, bool lap = false);
+		void show_time(std::string text, bool lap = false);
 	public:
 		timer();
 		void start();
-		void lap(char* text);
-		void stop(char* text);
+		void lap(std::string text);
+		void stop(std::string text);
 };
 
 // Constructor
@@ -33,7 +33,7 @@ void timer::start(){
 }
 
 // Lap function
-void timer::lap(char* text){
+void timer::lap(std::string text){
 	if(running == true){
 		show_time(text);
 		time_start_previous_lap = std::chrono::steady_clock::now();
@@ -44,7 +44,7 @@ void timer::lap(char* text){
 }
 
 // Stop function
-void timer::stop(char* text){
+void timer::stop(std::string text){
 	if(running == true){
 		show_time(text);
 		running		= false;
@@ -52,7 +52,7 @@ void timer::stop(char* text){
 }
 
 // Show time function
-void timer::show_time(char* text, bool lap){
+void timer::show_time(std::string text, bool lap){
 	if(lap){
 		time_elapsed	= std::chrono::steady_clock::now()-time_start_previous_lap;
 		std::cerr<< text << printf(": Total time: %f",time_elapsed.count()) << std::endl;
