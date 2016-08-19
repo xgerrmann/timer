@@ -30,9 +30,11 @@ timer::timer(){
 
 // Start function
 void timer::start(){
+	std::chrono::time_point<std::chrono::steady_clock> time_tmp;
 	running		= true;
-	time_start	= std::chrono::steady_clock::now();
-	time_start_previous_lap = std::chrono::steady_clock::now();
+	time_tmp	= std::chrono::steady_clock::now();
+	time_start	= time_tmp;
+	time_start_previous_lap = time_tmp;
 }
 
 // Lap function
@@ -61,11 +63,11 @@ void timer::stop(std::string text){
 void timer::show_time(std::string text, bool lap){
 	if(lap){
 		time_elapsed	= std::chrono::steady_clock::now()-time_start_previous_lap;
-		std::cerr<< text << ": Total time: " << time_elapsed.count() << std::endl;
+		std::cerr<< text << ": Elapsed time: " << time_elapsed.count() << std::endl;
 	}
 	else{
 		time_elapsed	= std::chrono::steady_clock::now()-time_start;
-		std::cerr<< text << ": Elapsed time: " << time_elapsed.count() << std::endl;
+		std::cerr<< text << ": Total time: " << time_elapsed.count() << std::endl;
 	}
  }
 
