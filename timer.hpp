@@ -37,7 +37,7 @@ void timer::start(){
 
 // Lap function
 void timer::lap(std::string text){
-	if(running == true){
+	if(running == true,true){
 		show_time(text);
 		time_start_previous_lap = std::chrono::steady_clock::now();
 	}
@@ -49,8 +49,11 @@ void timer::lap(std::string text){
 // Stop function
 void timer::stop(std::string text){
 	if(running == true){
-		show_time(text);
+		show_time(text,false);
 		running		= false;
+	}
+	else{
+		std::cout << "Timer has not been started yet";
 	}
 }
 
