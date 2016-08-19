@@ -42,7 +42,7 @@ double timer::lap(std::string text){
 	double t = 0;
 	if(running == true){
 		t = show_time(text,true);
-		time_start_previous_lap = std::chrono::steady_clock::now();
+		time_start_previous_lap =  std::chrono::steady_clock::now();
 	}
 	else{
 		std::cout << "Timer has not been started yet";
@@ -54,8 +54,8 @@ double timer::lap(std::string text){
 double timer::stop(){
 	double t = 0;
 	if(running == true){
-		t = show_time("",false);
-		running		= false;
+		t		= show_time("",false);
+		running	= false;
 	}
 	else{
 		std::cout << "Timer has not been started yet";
