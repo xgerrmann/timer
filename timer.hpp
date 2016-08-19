@@ -82,7 +82,7 @@ double timer::show_time(std::string text, bool lap){
  }
 
 //
-timer::tp now(){
+timer::tp timer::now(){
 	return std::chrono::steady_clock::now();
 }
 
