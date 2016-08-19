@@ -15,12 +15,12 @@ class timer{
 		bool running;
 		std::chrono::time_point<std::chrono::steady_clock> time_start, time_start_previous_lap;
 		std::chrono::duration<double> time_elapsed;
-		void show_time(std::string text, bool lap = false);
+		double show_time(std::string text, bool lap = false);
 	public:
 		timer();
 		void start();
-		void lap(std::string text);
-		void stop(std::string text);
+		double lap(std::string text);
+		double stop();
 };
 
 // Constructor
@@ -38,37 +38,42 @@ void timer::start(){
 }
 
 // Lap function
-void timer::lap(std::string text){
+double timer::lap(std::string text){
+	double t = 0;
 	if(running == true){
-		show_time(text,true);
+		t = show_time(text,true);
 		time_start_previous_lap = std::chrono::steady_clock::now();
 	}
 	else{
 		std::cout << "Timer has not been started yet";
 	}
+	return t;
 }
 
 // Stop function
-void timer::stop(std::string text){
+double timer::stop(){
+	double t = 0;
 	if(running == true){
-		show_time(text,false);
+		t = show_time("",false);
 		running		= false;
 	}
 	else{
 		std::cout << "Timer has not been started yet";
 	}
+	return t;
 }
 
 // Show time function
-void timer::show_time(std::string text, bool lap){
+double timer::show_time(std::string text, bool lap){
 	if(lap){
 		time_elapsed	= std::chrono::steady_clock::now()-time_start_previous_lap;
 		std::cerr<< text << ": Elapsed time: " << time_elapsed.count() << std::endl;
 	}
 	else{
 		time_elapsed	= std::chrono::steady_clock::now()-time_start;
-		std::cerr<< text << ": Total time: " << time_elapsed.count() << std::endl;
+		std::cerr<< "Total time: " << time_elapsed.count() << std::endl;
 	}
+	return (double) time_elapsed.count();
  }
 
 #endif
