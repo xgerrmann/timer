@@ -10,17 +10,22 @@
 #include <chrono>
 #include <ctime>
 
+
 class timer{
-	private:
-		bool running;
-		std::chrono::time_point<std::chrono::steady_clock> time_start, time_start_previous_lap;
-		std::chrono::duration<double> time_elapsed;
-		double show_time(std::string text, bool lap = false);
 	public:
 		timer();
 		void start();
 		double lap(std::string text);
 		double stop();
+
+		typedef std::chrono::time_point<std::chrono::steady_clock> tp; // define ts as a timestamp
+		static tp now();
+	
+	private:
+		bool running;
+		tp time_start, time_start_previous_lap;
+		std::chrono::duration<double> time_elapsed;
+		double show_time(std::string text, bool lap = false);
 };
 
 // Constructor
@@ -30,7 +35,7 @@ timer::timer(){
 
 // Start function
 void timer::start(){
-	std::chrono::time_point<std::chrono::steady_clock> time_tmp;
+	tp time_tmp;
 	running		= true;
 	time_tmp	= std::chrono::steady_clock::now();
 	time_start	= time_tmp;
@@ -75,5 +80,10 @@ double timer::show_time(std::string text, bool lap){
 	}
 	return (double) time_elapsed.count();
  }
+
+//
+timer::tp now(){
+	return std::chrono::steady_clock::now();
+}
 
 #endif
